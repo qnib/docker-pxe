@@ -1,0 +1,14 @@
+server {
+        listen   80;
+        access_log  /var/log/nginx_access.log;
+        root   {{ BASEDIR }}/;
+        location / {
+                index  index.php index.html index.htm;
+        }
+        location /repo {
+               autoindex on;
+        }
+        location /ks {
+               autoindex on;
+        }
+}

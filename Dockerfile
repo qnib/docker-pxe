@@ -27,7 +27,7 @@ RUN mkdir ${BASEDIR}/tftp/pxelinux.cfg
 
 ## nginx
 RUN apt-get install -y nginx
-ADD etc/nginx/sites-available/default /etc/nginx/sites-available/default
+#ADD etc/nginx/sites-available/default /etc/nginx/sites-available/default
 
 ## Mirror
 RUN apt-get install -y apt-mirror
@@ -59,6 +59,8 @@ ADD templates/ /opt/templates/
 ENV HTTP_HOST 192.168.1.2
 ENV NFS_HOST 192.168.1.22
 RUN /opt/templates/create_j2.py /opt/templates/pxelinux.cfg/default.j2 ${BASEDIR}/tftp/pxelinux.cfg/default
+# nginx-config
+RUN /opt/templates/create_j2.py /opt/templates/nginx.j2 /etc/nginx/sites-available/default
 
 ADD etc/apt/mirror.list /etc/apt/mirror.list
 

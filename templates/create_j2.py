@@ -26,7 +26,8 @@ def main():
     template = templateEnv.get_template( TEMPLATE_FILE )
 
     outputText = template.render( os.environ )
-    print outputText
+    with open(options.get("<dest_file>"), "w") as fd:
+        fd.write(outputText)
 
 if __name__ == "__main__":
     main()
