@@ -1,0 +1,33 @@
+default vesamenu.c32
+timeout 50
+
+menu title PXE Boot Menu
+
+label localhdd1
+  menu label Local ^HDD
+  localboot  0
+
+label debian_w
+  menu label Debian Wheezy (KS)
+  kernel images/debian/wheezy/linux
+  append vga=normal initrd=images/debian/wheezy/initrd.gz auto=true priority=critical interface=auto netcfg/no_default_route=true netcfg/get_nameservers= url=http://{{ HTTP_HOST }}/ks/debian/wheezy/ks.cfg DEBCONF_DEBUG=5 --
+
+label u1204_srv
+  menu label Ubuntu 12.04 Server (READY)
+  kernel root/ubuntu/12/04/srv/install/netboot/ubuntu-installer/amd64/linux
+  append ks=http://{{ HTTP_HOST }}/ks/ubuntu/12/04/srv/ks.cfg vga=normal initrd=root/ubuntu/12/04/srv/install/netboot/ubuntu-installer/amd64/initrd.gz ramdisk_size=16432
+
+label u1404_srv
+  menu label Ubuntu 14.04 Server (READY)
+  kernel root/ubuntu/14/04/srv/install/netboot/ubuntu-installer/amd64/linux
+  append ks=http://{{ HTTP_HOST }}/ks/ubuntu/14/04/srv/ks.cfg vga=normal initrd=root/ubuntu/14/04/srv/install/netboot/ubuntu-installer/amd64/initrd.gz ramdisk_size=16432
+
+label cos66
+  menu label CentOS 6.6 (READY)
+  kernel root/centos/6/6/x86_64/images/pxeboot/vmlinuz
+  append ks=http://{{ HTTP_HOST }}/ks/centos/6/6/ks.cfg initrd=root/centos/6/6/x86_64/images/pxeboot/initrd.img ramdisk_size=100000 ksdevice=eth0 ip=dhcp
+
+label u1404_dskt
+  menu label Ubuntu 14.04 Desktop
+  kernel images/ubuntu/14/04/desktop/vmlinuz
+  append root=/dev/nfs boot=casper netboot=nfs nfsroot={{ NFS_HOST }}:/tftp/root/ubuntu/14/04/desktop/ vga=normal boot=casper initrd=images/ubuntu/14/04/desktop/initrd.lz ramdisk_size=16432 -- ks=http://{{ HTTP_HOST }}:8080/ks/ubuntu/14/04/ks.cfg

@@ -1,0 +1,8 @@
+{
+  "check": {
+    "id": "dnsmasq-dhcp",
+    "name": "Check DHCP leases",
+    "script": "/opt/qnib/bin/check_dnsmasq.py",
+    "interval": "10s"
+  }
+}
