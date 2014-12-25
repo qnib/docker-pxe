@@ -7,7 +7,7 @@ RUN echo "2014-10-02.1";apt-get update
 ENV ARCH amd64
 ENV DIST wheezy
 ENV MIRROR http://ftp.nl.debian.org
-ENV BASEDIR /data
+ENV BASEDIR /tftp
 
 RUN apt-get -q update
 RUN apt-get install -y supervisor
@@ -17,7 +17,8 @@ WORKDIR /usr/local/bin/
 RUN wget -q --no-check-certificate https://raw.github.com/jpetazzo/pipework/master/pipework
 RUN chmod +x pipework
 
-RUN mkdir -p ${BASEDIR}/{ks,tftp,repo}
+WORKDIR ${BASEDIR}
+ADD ks ${BASEDIR}/ks
 WORKDIR ${BASEDIR}/tftp/images/debian/$DIST
 RUN wget -q $MIRROR/debian/dists/$DIST/main/installer-$ARCH/current/images/netboot/debian-installer/$ARCH/linux
 RUN wget -q $MIRROR/debian/dists/$DIST/main/installer-$ARCH/current/images/netboot/debian-installer/$ARCH/initrd.gz
