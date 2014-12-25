@@ -19,7 +19,7 @@ RUN chmod +x pipework
 
 WORKDIR ${BASEDIR}
 ADD ks ${BASEDIR}/ks
-WORKDIR ${BASEDIR}/tftp/images/debian/$DIST
+WORKDIR ${BASEDIR}/images/debian/$DIST
 RUN wget -q $MIRROR/debian/dists/$DIST/main/installer-$ARCH/current/images/netboot/debian-installer/$ARCH/linux
 RUN wget -q $MIRROR/debian/dists/$DIST/main/installer-$ARCH/current/images/netboot/debian-installer/$ARCH/initrd.gz
 RUN wget -q $MIRROR/debian/dists/$DIST/main/installer-$ARCH/current/images/netboot/debian-installer/$ARCH/pxelinux.0
